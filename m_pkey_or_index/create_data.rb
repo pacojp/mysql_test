@@ -21,6 +21,8 @@ procs = {
   :user_id    => Proc.new{|v|v[:user_id]},
   :name       => Proc.new{|v|"#{v[:brand_id]}_#{v[:user_id]}_name"},
   :value1     => Proc.new{rand(10000)},
+  :value2     => Proc.new{rand(10000)},
+  :value3     => Proc.new{rand(10000)},
   :created_at => Proc.new{'NOW()'},
 }
 
@@ -33,6 +35,8 @@ CREATE TABLE m_pkey_or_index__index (
   `user_id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
   `value1` int(11) NOT NULL,
+  `value2` int(11) NOT NULL,
+  `value3` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `idx01` USING BTREE (`brand_id`,`user_id`)
@@ -52,6 +56,8 @@ CREATE TABLE m_pkey_or_index__m_pkey (
   `user_id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
   `value1` int(11) NOT NULL,
+  `value2` int(11) NOT NULL,
+  `value3` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY  (`brand_id`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
