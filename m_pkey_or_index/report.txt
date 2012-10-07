@@ -1,0 +1,32 @@
+                      user     system      total        real
+01:m_pkey count   0.000000   0.000000   0.000000 (  1.360242)
+02:m_pkey count   0.000000   0.000000   0.000000 (  0.857279)
+03:m_pkey count   0.000000   0.000000   0.000000 (  0.942338)
+04:m_pkey fetch   0.550000   0.420000   0.970000 (  2.999886)
+05:m_pkey fetch   7.380000   4.790000  12.170000 ( 41.383009)
+06:index count    0.000000   0.000000   0.000000 (  0.907642)
+07:index count    0.000000   0.000000   0.000000 (  6.219106)
+08:index count    0.000000   0.000000   0.000000 (  6.346551)
+09:index fetch    0.590000   0.840000   1.430000 (  8.779552)
+10:index fetch    7.950000   6.600000  14.550000 ( 49.851586)
+
+==============   01:m_pkey(counted:3000000)   ==============
+SELECT SQL_NO_CACHE count(*) AS cnt FROM m_pkey_or_index__m_pkey WHERE brand_id = 6
+==============   02:m_pkey(counted:1799351)   ==============
+SELECT SQL_NO_CACHE count(*) AS cnt FROM m_pkey_or_index__m_pkey WHERE brand_id = 6 AND value1 > 4000
+==============   03:m_pkey(counted:1079610)   ==============
+SELECT SQL_NO_CACHE count(*) AS cnt FROM m_pkey_or_index__m_pkey WHERE brand_id = 6 AND value1 > 4000 AND value2 < 6000
+==============   04:m_pkey(fetched:3000000)   ==============
+SELECT SQL_NO_CACHE * FROM m_pkey_or_index__m_pkey WHERE brand_id = 6
+=============   05:m_pkey(fetched:39000000)   ==============
+SELECT SQL_NO_CACHE * FROM m_pkey_or_index__m_pkey
+==============   06:index(counted:3000000)   ===============
+SELECT SQL_NO_CACHE count(*) AS cnt FROM m_pkey_or_index__index WHERE brand_id = 6
+==============   07:index(counted:1800989)   ===============
+SELECT SQL_NO_CACHE count(*) AS cnt FROM m_pkey_or_index__index WHERE brand_id = 6 AND value1 > 4000
+==============   08:index(counted:1080794)   ===============
+SELECT SQL_NO_CACHE count(*) AS cnt FROM m_pkey_or_index__index WHERE brand_id = 6 AND value1 > 4000 AND value2 < 6000
+==============   09:index(fetched:3000000)   ===============
+SELECT SQL_NO_CACHE * FROM m_pkey_or_index__index WHERE brand_id = 6
+==============   10:index(fetched:39000000)   ==============
+SELECT SQL_NO_CACHE * FROM m_pkey_or_index__index

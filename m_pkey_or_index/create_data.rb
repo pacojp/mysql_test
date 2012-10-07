@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
 require 'mysql2'
-require '../lib/util'
+require 'testdata_generater_for_mysql'
 
-setup_mysql_settings(:host => "127.0.0.1", :username => "root",:database=>'performance_test')
-insert_per_rows = 1000
+include TestdataGeneraterForMysql
+
+setup_mysql_client :host => "127.0.0.1", :username => "root",:database=>'performance_test'
+insert_per_rows 1000
 
 BRAND_COUNT     = 13
-USER_PER_BRAND  = 300_0000
-#user_per_brand = 30
+USER_PER_BRAND  = 3_000_000
+#USER_PER_BRAND = 30
 
 # データの作成ロジック（ループ、列データ作成共に共通です）
 loops = [
@@ -23,7 +25,7 @@ procs = {
   :value1     => Proc.new{rand(10000)},
   :value2     => Proc.new{rand(10000)},
   :value3     => Proc.new{rand(10000)},
-  :created_at => Proc.new{'NOW()'},
+  :created_at => Proc.new{'NOW()'.to_func},
 }
 
 # オートインクリ主キーなテーブル
